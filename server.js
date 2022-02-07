@@ -32,31 +32,85 @@ db.query(`SELECT * FROM employee WHERE id = 1`, (err, row) => {
     console.log(row);
   });
 
-  function employeeAdd () {
-    inquirer.prompt({
+  function employeeMain () {
+    inquirer
+    .prompt({
         type:'list',
         name:'answer',
         message:'Select an option',
         choices:[
-        // Veiw departments
-        'Veiw departments',
+        // View departments
+        'View departments',
 
-        // Veiw roles
-        'Veiw roles',
+        // View roles
+        'View roles',
 
-        // Veiw employees
-        'Veiw employees',
-
-        // Add department 
-
-        // Add role
-
-        // Add employee 
-
-        // Update role
+        // View employees
+        'View employees',
+    
+        // Add employee
+        "Add employee" 
         ]
-    })
-  };
+        })
+        .then((res)=> {
+          
+            switch (res.answer){
+
+                case 'View departments':
+                viewDepartments();
+                break;
+                
+                case "Add employee":
+                addEmployee();
+                break;
+                
+            }
+            //console.log(answer)
+        });
+    }
+        // Add department 
+      
+        // Add role
+       
+        // Add employee 
+      
+        // Update role
+       
+        function addEmployee () {
+            inquirer.prompt([
+                {
+                    type:'input',
+                    name:'firstName',
+                    message:'First name?',  
+                },
+                {
+                    type:'input',
+                    name:'lastName',
+                    message:'Last name?',  
+                },
+                {
+                    type:'input',
+                    name:'role',
+                    message:'Employee role?',  
+                },
+                {
+                    type:'input',
+                    name:'department',
+                    message:'Department?',  
+                },
+            ])
+        }
+
+    function viewDepartments(){ 
+        const sql = `SELECT * FROM department`;
+        db.query(query, function(err, res) {
+            if (err) throw err;
+            console.table(res);
+        });
+        employeeMain();
+    }
+    
+
 
 
 // Response for any other request (Not Found)
@@ -68,4 +122,4 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
   
-  employeeAdd();
+  employeeMain();
