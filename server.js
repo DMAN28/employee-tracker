@@ -18,7 +18,7 @@ const db = mysql.createConnection(
       user: 'root',
       // Your MySQL password
       //password: process.env.DB_PW,
-      password: '*',
+      password: 'Admc#4512ay',
       database: 'employeetrkr',
     },
     console.log('Connected to database.')
@@ -49,7 +49,16 @@ db.query(`SELECT * FROM employee WHERE id = 1`, (err, row) => {
         'View employees',
     
         // Add employee
-        "Add employee" 
+        "Add employee",
+
+        //"Add a department" 
+        "Add department",
+
+       // "Add a role" 
+        "Add role",
+
+       // "Update employee role"
+        "Update employee role",
         ]
         })
         .then((res)=> {
@@ -64,6 +73,13 @@ db.query(`SELECT * FROM employee WHERE id = 1`, (err, row) => {
                 addEmployee();
                 break;
                 
+                case "Add department":
+                addDepartment();
+                break;
+
+                case "Add role":
+                addRole();
+                break;
             }
             //console.log(answer)
         });
@@ -101,19 +117,38 @@ db.query(`SELECT * FROM employee WHERE id = 1`, (err, row) => {
             ])
         }
 
+        function addDepartment () {
+            inquirer.prompt([
+                {
+                    type:'input',
+                    name:'department',
+                    message:'Department name?',  
+                },
+              
+            ])
+        }
+
+        function addDepartment () {
+            inquirer.prompt([
+                {
+                    type:'input',
+                    name:'role',
+                    message:'Employee Role?',  
+                },
+              
+            ])
+        }
+
+
     function viewDepartments(){ 
-        const sql = `SELECT * FROM department`;
-        db.query(query, function(err, res) {
-            if (err) throw err;
-            console.table(res);
-        });
-        employeeMain();
+        return table = "SELECT * FROM department";
+        
     }
+    
     
 
 
-
-// Response for any other request (Not Found)
+//Response for any other request (Not Found)
 app.use((req, res) => {
     res.status(404).end();
   });
